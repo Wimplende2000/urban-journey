@@ -6,7 +6,6 @@
 #include <fcntl.h>
 
 #define BUFSIZE 30
-
 void memprint(char *, char *, int);
 
 void intro();
@@ -17,6 +16,7 @@ void part4();
 void part5(char *);
 void part6();
 
+char* hexFormatStr = "%02x";
 int main(int argc, char *argv[]) {
 	if (argc != 2) {
 		fprintf(stderr, "usage: %s <filename>\n", argv[0]);
@@ -45,10 +45,8 @@ void memprint(char *s, char *fmt, int len) {
 
 void intro() {
 	printf("===== Intro =====\n");
-
 	// Note: STDOUT_FILENO is defined in /usr/include/unistd.h:
 	// #define	STDOUT_FILENO	1
-
 	char s1[] = { 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x0a };
 	write(STDOUT_FILENO, s1, 6);
 
@@ -60,147 +58,246 @@ void intro() {
 }
 
 void part1() {
-
-	printf("===== Question 1 =====\n");
+printf("===== Question 1 =====\n");
 	char s1[] = "hello";
-	int s1_len;
-
+	int size = sizeof(s1);
+	int s1_len = size;
+	printf("s1_len size:%i\n",s1_len);
 	printf("===== Question 2 =====\n");
+		char hexFormat[] = "%02x";
+		char decimalFormat[] = "%d";
+		char charFormat[] = "%c";
 
+	memprint(s1,hexFormat,s1_len);
+	memprint(s1,decimalFormat,s1_len);
+	memprint(s1,charFormat,s1_len);
 	printf("===== Question 3 (no code changes) =====\n");
 
 	printf("===== Question 4 (no code changes) =====\n");
 
 	printf("===== Question 5 =====\n");
 	char s2[10];
-	int s2_len;
+    int size2 = sizeof(s2);
+	int s2_len = size2;
+    printf("s2_len size:%i\n",s2_len);
+
 
 	printf("===== Question 6 =====\n");
 	char *s3 = s1;
-	int s3_len;
-
+    int s3_len = sizeof(s3);
+    printf("s3 num of bytes:%i\n",s3_len);
+    printf("s3 string value:%s\n",s3);
 	printf("===== Question 7 =====\n");
 	char *s4 = malloc(1024 * sizeof(char));
-	int s4_len;
-
+    int s4_len = sizeof(s4);
+    printf("s4 num of bytes:%i\n",s4_len);
+    printf("s4 string value:%s\n",s4);
 	printf("===== Question 8 (no code changes) =====\n");
-
 	printf("===== Question 9 =====\n");
-
+    printf("s4 before:%i\n",s4_len);
+    free(s4);
+    printf("s4 after:%i\n",s4_len);
 }
-
 void part2() {
-	char s1[] = "hello";
-	char s2[1024];
-	char *s3 = s1;
+    char s1[] = "hello";
+    char s2[1024];
+    char *s3 = s1;
 
-	// Copy sizeof(s1) bytes of s1 to s2.
-	memcpy(s2, s1, sizeof(s1));
+    // Copy sizeof(s1) bytes of s1 to s2.
+    memcpy(s2, s1, sizeof(s1));
 
-	printf("===== Question 10 =====\n");
+    printf("===== Question 10 =====\n");
+    printf("s1 address: %lu\n", (long unsigned int) &s1);
+    printf("s2 address: %lu\n", (long unsigned int) &s2);
+    printf("s3 address: %lu\n", (long unsigned int) &s3);
 
-	printf("===== Question 11 =====\n");
+    printf("===== Question 11 =====\n");
+    printf("s1 address: %lu\n", (long unsigned int) *s1);
+    printf("s2 address: %lu\n", (long unsigned int) *s2);
+    printf("s3 address: %lu\n", (long unsigned int) *s3);
+    printf("===== Question 12 (no code changes) =====\n");
+    printf("===== Question 13 =====\n");
+    printf("Dereferenced Contents s1: %s\n", s1);
+    printf("Dereferenced Contents s2: %s\n", s2);
+    printf("Dereferenced Contents s3: %s\n", s3);
 
-	printf("===== Question 12 (no code changes) =====\n");
+    printf("===== Question 14 =====\n");
+    if (s1 == s2) {
+        printf("s1 == s2\n");
+    }
+    if (s1 == s3) {
+        printf("s1 == s3\n");
+    }
+    if (s2 == s3) {
+        printf("s2 == s3\n");
+    }
 
-	printf("===== Question 13 =====\n");
+    printf("===== Question 15 =====\n");
+    if (strcmp(s1, s2) == 0) {
+        printf("s1 == s2\n");
+    }
+    if (strcmp(s1, s3) == 0) {
+        printf("s1 == s3\n");
+    }
+    if (strcmp(s2, s3) == 0) {
+        printf("s2 == s3\n");
+    }
 
-	printf("===== Question 14 =====\n");
-
-	printf("===== Question 15 =====\n");
-
-	printf("===== Question 16 =====\n");
-	s1[1] = 'u';
-
-	printf("===== Question 17 =====\n");
-
-	printf("===== Question 18 =====\n");
+    printf("===== Question 16 =====\n");
+    s1[1] = 'u';
+    printf("Dereferenced Contents s1: %s\n", s1);
+    printf("Dereferenced Contents s2: %s\n", s2);
+    printf("Dereferenced Contents s3: %s\n", s3);
+    printf("===== Question 17 =====\n");
+    if (s1 == s2) {
+        printf("s1 == s2\n");
+    }
+    if (s1 == s3) {
+        printf("s1 == s3\n");
+    }
+    if (s2 == s3) {
+        printf("s2 == s3\n");
+    }
+    printf("===== Question 18 =====\n");
+    if (strcmp(s1, s2) == 0) {
+        printf("s1 == s2\n");
+    }
+    if (strcmp(s1, s3) == 0) {
+        printf("s1 == s3\n");
+    }
+    if (strcmp(s2, s3) == 0) {
+        printf("s2 == s3\n");
+    }
 }
-
 void part3() {
-	char s1[] = { 'a', 'b', 'c', 'd', 'e', 'f' };
-	char s2[] = { 97, 98, 99, 100, 101, 102 };
-	char s3[] = { 0x61, 0x62, 0x63, 0x64, 0x65, 0x66 };
-
-	printf("===== Question 19 =====\n");
+    char s1[] = { 'a', 'b', 'c', 'd', 'e', 'f' };
+    char s2[] = { 97, 98, 99, 100, 101, 102 };
+    char s3[] = { 0x61, 0x62, 0x63, 0x64, 0x65, 0x66 };
+    printf("===== Question 19 =====\n");
+    int result = memcmp(s1, s2, sizeof(char));
+    if (memcmp(s1, s2, sizeof(s1)) == 0) {
+        printf("s1==s2\n");
+    }
+    if (memcmp(s1, s3, sizeof(s1)) == 0) {
+        printf("s1==s3\n");
+    }
+    if (memcmp(s2, s3, sizeof(s1)) == 0) {
+        printf("s2==s3\n");
+    }
 }
 
 void part4() {
-	char s1[] = { 'a', 'b', 'c', '\0', 'd', 'e', 'f', '\0' };
-	char s2[] = { 'a', 'b', 'c', '\0', 'x', 'y', 'z', '\0' };
+   char s1[] = { 'a', 'b', 'c', '\0', 'd', 'e', 'f', '\0' };
+    char s2[] = { 'a', 'b', 'c', '\0', 'x', 'y', 'z', '\0' };
 
-	printf("===== Question 20 =====\n");
+    printf("===== Question 20 =====\n");
+    if (memcmp(s1, s2, sizeof(s1))==0) {
+    printf("s1==s2\n");
+    }
 
-	printf("===== Question 21 =====\n");
+    printf("===== Question 21 =====\n");
+    if (strcmp(s1,s2)) {
+        printf("s1==s2\n");
+    }
 
-	printf("===== Question 22 =====\n");
-	char s3[16];
-	char s4[16];
+    printf("===== Question 22 =====\n");
+    char s3[16];
+    char s4[16];
+    memset(s3, 'z', sizeof(s3));
+    memprint(s3, "%02x", sizeof (s3));
 
-	printf("===== Question 23 =====\n");
+    memset(s4, 'z', sizeof (s4));
+    memprint(s4, "%02x", sizeof (s4));
 
-	printf("===== Question 24 =====\n");
-	int myval = 42;
 
-	printf("===== Question 25 =====\n");
-	char *s5;
-	char *s6 = NULL;
-	char *s7 = s4;
+    printf("===== Question 23 =====\n");
+    strcpy(s3, s1);
+    memprint(s3, "%02x", strlen(s3));
 
+    printf("===== Question 24 =====\n");
+    int myval = 42;
+
+    sprintf("===== Question 25 =====\n");
+    char *s5;
+    char *s6 = NULL;
+    memprint(s5, "%02x", 8);
+    memprint(s6, "%02x", 8);
+    memprint(s7, "%02x", 8);
 }
-
 void part5(char *filename) {
-	printf("===== Question 26 =====\n");
+    printf("===== Question 26 =====\n");
+    printf("stdin value: %i\n", fileno(stdin));
+    printf("stdout value: %i\n", fileno(stdout));
+    printf("stderr value: %i\n", fileno(stderr));
 
-	printf("===== Question 27 =====\n");
 
-	char buf[BUFSIZE];
+    printf("===== Question 27 =====\n");
+    char buf[30];
+    memset(buf, 0x7a, 30);
+    buf[24] = '\0';
+    memprint(buf, "%02x", 30);
 
-	printf("===== Question 28 =====\n");
 
-	fprintf(stderr, "===== Question 29 =====\n");
+    printf("===== Question 28 =====\n");
+    printf("%s\n",buf);
+    write(STDOUT_FILENO, buf, BUFSIZE);
+    printf("\n");
 
-	printf("===== Question 30 (no code changes) =====\n");
 
-	printf("===== Question 31 =====\n");
-	int fd1, fd2;
+    fprintf(stderr, "===== Question 29 =====\n");
+    fprintf(stderr, "%s\n", buf);
+    write(fileno(stderr), buf, BUFSIZE);
+    write(fileno(stderr), "\n", BUFSIZE);
+    printf("===== Question 30 (no code changes) =====\n");
 
-	printf("===== Question 32 =====\n");
-	size_t nread = 0;
-	size_t totread = 0;
+    printf("===== Question 31 =====\n");
+    int fd1, fd2;
+    fd1 = open(filename, O_RDONLY);
+    fd2 = fd1;
+    printf("\nfd1 value: %d", fd1);
+    printf("\nfd2 value: %d\n", fd2);
+    memprint(buf, "%02x", BUFSIZE);
+    printf("===== Question 32 =====\n");
+    size_t nread = 0;
+    size_t totread = 0;
+    nread = read(fd1, buf, 4);
+    totread = totread + nread;
 
-	printf("===== Question 33 (no code changes) =====\n");
+    printf("\nnread value: %i", nread);
+    printf("\ntotread value: %i\n", totread);
+    memprint(buf, "%02x", BUFSIZE);
+    printf("===== Question 33 (no code changes) =====\n");
 
-	printf("===== Question 34 (no code changes) =====\n");
+    printf("===== Question 34 (no code changes) =====\n");
 
-	printf("===== Question 35 =====\n");
+    printf("===== Question 35 =====\n");
 
-	printf("===== Question 36 (no code changes) =====\n");
+    printf("===== Question 36 (no code changes) =====\n");
 
-	printf("===== Question 37 (no code changes) =====\n");
+    printf("===== Question 37 (no code changes) =====\n");
 
-	printf("===== Question 38 =====\n");
+    printf("===== Question 38 =====\n");
 
-	printf("===== Question 39 (no code changes) =====\n");
+    printf("===== Question 39 (no code changes) =====\n");
 
-	printf("===== Question 40 (no code changes) =====\n");
+    printf("===== Question 40 (no code changes) =====\n");
 
-	printf("===== Question 41 (no code changes) =====\n");
+    printf("===== Question 41 (no code changes) =====\n");
 
-	printf("===== Question 42 =====\n");
+    printf("===== Question 42 =====\n");
 
-	printf("===== Question 43 =====\n");
+    printf("===== Question 43 =====\n");
 
-	printf("===== Question 44 =====\n");
+    printf("===== Question 44 =====\n");
 
-	printf("===== Question 45 =====\n");
-	int ret = 0;
+    printf("===== Question 45 =====\n");
+    int ret = 0;
 
-	printf("===== Question 46 =====\n");
+    printf("===== Question 46 =====\n");
 
-	printf("===== Question 47 =====\n");
+    printf("===== Question 47 =====\n");
 
-	printf("===== Question 48 =====\n");
+    printf("===== Question 48 =====\n");
 
 }
 
